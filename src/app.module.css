@@ -1,0 +1,9 @@
+body {
+    background-color: #EBE9E4;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.container {
+    width:900px;
+    margin: 0 auto;
+}
