@@ -3,10 +3,12 @@ import Card from '../../ui/Card/Card';
 import getUsers from './../../../services/usersApi';
 import styles from './cardList.module.css';
 
-const CardList = () => {
+const CardList = ({ view, isSort }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [sortedUsers, setSortedUsers] = useState([]);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -14,7 +16,6 @@ const CardList = () => {
     try {
       const users = await getUsers();
       setUsers(users);
-      console.log(users);
     } catch (error) {
       setError(error);
     }
@@ -25,25 +26,28 @@ const CardList = () => {
     fetchUsers();
   }, []);
 
+  
+
   return (
-    <div>
+    <>
       {loading ? <p>Loading...</p> : null}
       {error ? <p>{error.message}</p> : null}
 
       <div className={styles.grid}>
-        {users?.map((user) => (
-          <Card
-            key={user.email}
-            fname={user.name.first}
-            lname={user.name.last}
-            email={user.email}
-            phone={user.phone}
-            picture={user.picture.large}
-            location={user.location.city}
-          />
-        ))}
+        {users.map((user) => (
+              <Card
+                key={user.email}
+                fname={user.name.first}
+                lname={user.name.last}
+                email={user.email}
+                phone={user.phone}
+                picture={user.picture.large}
+                location={user.location.city}
+                view={view}
+              />
+          ))}
       </div>
-    </div>
+    </>
   );
 };
 
