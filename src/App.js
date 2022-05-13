@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import styles from './app.module.css';
 import CardList from './components/pages/CardList/CardList';
 import { RiArrowUpDownLine } from 'react-icons/ri';
 import { FiGrid, FiList } from 'react-icons/fi';
+import GlobalStyle from './Global.styles';
+import { Container, Nav, PageTitle, SearchInput} from './App.styles';
 
 const App = () => {
   const [view, setView] = useState('grid');
@@ -22,36 +23,35 @@ const App = () => {
     }
 
   return (
-    <div className={styles.container}>
-      <header>
-        <h1 className={styles.page_title}>Meet the team</h1>
-        <nav>
-          <RiArrowUpDownLine
-            style={{ fontSize: '25px' }}
-            onClick={handleSortByName}
+    <>
+      <GlobalStyle />
+      <Container>
+        <header>
+          <PageTitle>Meet the team</PageTitle>
+          <Nav>
+            <RiArrowUpDownLine
+              style={{ fontSize: '25px', cursor: 'pointer' }}
+              onClick={handleSortByName}
+            />
+            <SearchInput onChange={handleSearch} />
+            <div onClick={changeView}>
+              {view === 'grid' ? (
+                <FiGrid style={{ fontSize: '25px', cursor: 'pointer' }} />
+              ) : (
+                <FiList style={{ fontSize: '25px', cursor: 'pointer' }} />
+              )}
+            </div>
+          </Nav>
+        </header>
+        <main>
+          <CardList
+            view={view}
+            isSortByName={isSortByName}
+            searchTerm={searchTerm}
           />
-          <input
-            type='search'
-            className={styles.search_input}
-            onChange={handleSearch}
-          />
-          <button onClick={changeView}>
-            {view === 'grid' ? (
-              <FiGrid style={{ fontSize: '25px' }} />
-            ) : (
-              <FiList style={{ fontSize: '25px' }} />
-            )}
-          </button>
-        </nav>
-      </header>
-      <main>
-        <CardList
-          view={view}
-          isSortByName={isSortByName}
-          searchTerm={searchTerm}
-        />
-      </main>
-    </div>
+        </main>
+      </Container>
+    </>
   );
 };
 

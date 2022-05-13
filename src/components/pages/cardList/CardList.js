@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../../ui/Card/Card';
 import getUsers from './../../../services/usersApi';
-import styles from './cardList.module.css';
+
+import { StyledCardList } from './CardList.styles';
 
 const CardList = ({ view, isSortByName, searchTerm }) => {
   const [users, setUsers] = useState([]);
@@ -66,7 +67,8 @@ const CardList = ({ view, isSortByName, searchTerm }) => {
       {loading ? <p>Loading...</p> : null}
       {error ? <p>{error.message}</p> : null}
 
-      <div className={styles.grid}>
+   
+      <StyledCardList view={ view }>
         {sortedUsers.map((user) => (
           <Card
             key={user.email}
@@ -79,7 +81,7 @@ const CardList = ({ view, isSortByName, searchTerm }) => {
             view={view}
           />
         ))}
-      </div>
+      </StyledCardList>
     </>
   );
 };

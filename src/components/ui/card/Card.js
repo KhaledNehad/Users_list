@@ -1,35 +1,33 @@
 import React from 'react';
-import styles from './card.module.css';
 import { BiPhoneCall, BiEnvelope } from 'react-icons/bi';
+import { StyledCard } from './Card.styles';
 
 const Card = (props) => {
   const { fname, lname, email, phone, picture, location, view } = props;
   return (
-    <div className={view === 'grid' ? styles.card : 'list'}>
-      <div className={styles.card__title}>
-        <h2>
-          {fname} {lname}
-        </h2>
-      </div>
-
-      <div className={styles.card__image}>
-        {<img src={picture} alt={`${fname} ${lname}`} />}
-      </div>
-      <div className={styles.card__content}>
-        <div className={styles.card__content__info}>
-          <p>{location}</p>
-          <div className={styles.contact__details}>
-            <a href={`mailto:${email}`}>
-              <BiEnvelope />
-            </a>
-
-            <a href={`tel:${phone}`}>
-              <BiPhoneCall />
-            </a>
+    <>
+      <StyledCard view={view}>
+        <div className='card-image'>
+          <img src={picture} alt={`${fname} ${lname}`} />
+        </div>
+        <h2>{`${fname} ${lname}`}</h2>
+        <div className='card__content'>
+          <div className='card__content__info'>
+            <div className='card__footer'>
+              <p>{location}</p>
+              <div className='card-icons'>
+                <a href={`tel:${phone}`}>
+                  <BiPhoneCall />
+                </a>
+                <a href={`mailto:${email}`}>
+                  <BiEnvelope />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </StyledCard>
+    </>
   );
 };
 
