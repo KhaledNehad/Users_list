@@ -18,6 +18,10 @@ export const StyledCard = styled.div`
   &:hover {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
   }
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    width: ${(props) => (props.view === 'grid' ? '45%' : '100%')};
+    height: ${(props) => (props.view === 'grid' ? '250px' : '100px')};
+  }
 
   ::before {
     content: '';
@@ -27,7 +31,9 @@ export const StyledCard = styled.div`
     left: 0;
     width: ${(props) => (props.view === 'grid' ? '100%' : '10%')};
     height: ${(props) => (props.view === 'grid' ? '50%' : '100%')};
-    background-color: #a7b8a8;
+    background-color: var(
+      --${({ randomColor }) => (randomColor && randomColor) || 'primary'}
+    );
     border-radius: 20px 20px 60px 0;
     z-index: 1;
   }
@@ -43,7 +49,9 @@ export const StyledCard = styled.div`
   }
 
   .card__content {
-    background-color: #a7b8a8;
+    background-color: var(
+      --${({ randomColor }) => (randomColor && randomColor) || 'primary'}
+    );
     width: 100%;
     position: absolute;
     height: 50%;
@@ -89,8 +97,8 @@ export const StyledCard = styled.div`
       props.view === 'grid' ? 'center' : 'space-between'};
     align-items: center;
     width: 100%;
-    margin-left:${(props) => (props.view === 'grid' ? '0' : '15%')};
-    margin-right:${(props) => (props.view === 'grid' ? '0' : '1rem')};
+    margin-left: ${(props) => (props.view === 'grid' ? '0' : '15%')};
+    margin-right: ${(props) => (props.view === 'grid' ? '0' : '1rem')};
   }
 
   h2 {

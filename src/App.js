@@ -4,6 +4,13 @@ import { RiArrowUpDownLine } from 'react-icons/ri';
 import { FiGrid, FiList } from 'react-icons/fi';
 import GlobalStyle from './Global.styles';
 import { Container, Nav, PageTitle, SearchInput} from './App.styles';
+import {ThemeProvider} from 'styled-components'
+
+const theme = {
+  mobileS: '320px',
+  mobile: '425px',
+  tablet: '768px',
+};
 
 const App = () => {
   const [view, setView] = useState('grid');
@@ -14,7 +21,8 @@ const App = () => {
     setView(view === 'grid' ? 'list' : 'grid');
   };
 
-    const handleSortByName = () => {
+  const handleSortByName = (e) => {
+      e.preventDefault();
       setIsSortByName(prevState =>  !prevState);
     };
 
@@ -23,6 +31,7 @@ const App = () => {
     }
 
   return (
+    <ThemeProvider theme={theme}>
     <>
       <GlobalStyle />
       <Container>
@@ -51,7 +60,8 @@ const App = () => {
           />
         </main>
       </Container>
-    </>
+      </>
+      </ThemeProvider>
   );
 };
 

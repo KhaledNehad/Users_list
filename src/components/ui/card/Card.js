@@ -4,9 +4,12 @@ import { StyledCard } from './Card.styles';
 
 const Card = (props) => {
   const { fname, lname, email, phone, picture, location, view } = props;
+  const colors = ['primary', 'secondary', 'tertiary'];
+  let randomColor = colors[Math.floor(Math.random() * colors.length)];
+  console.log(randomColor);
   return (
     <>
-      <StyledCard view={view}>
+      <StyledCard view={view} randomColor={randomColor}>
         <div className='card-image'>
           <img src={picture} alt={`${fname} ${lname}`} />
         </div>
