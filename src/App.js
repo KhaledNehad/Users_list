@@ -1,21 +1,24 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from './app.module.css';
 import CardList from './components/pages/CardList/CardList';
-import { RiArrowUpDownLine } from 'react-icons/ri'
-import { FiGrid , FiList} from 'react-icons/fi';
-
+import { RiArrowUpDownLine } from 'react-icons/ri';
+import { FiGrid, FiList } from 'react-icons/fi';
 
 const App = () => {
-    const [view, setView] = useState('grid');
-    const [isSortByName, setIsSortByName] = useState(false);
+  const [view, setView] = useState('grid');
+  const [isSortByName, setIsSortByName] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
-    const changeView = () => {
-        setView(view === 'grid' ? 'list' : 'grid');
-    }
+  const changeView = () => {
+    setView(view === 'grid' ? 'list' : 'grid');
+  };
 
     const handleSortByName = () => {
-        setIsSortByName(!isSortByName);
-        console.log(isSortByName);
+      setIsSortByName(prevState =>  !prevState);
+    };
+
+    const handleSearch = (e) => { 
+        setSearchTerm(e.target.value);
     }
 
   return (
@@ -27,7 +30,11 @@ const App = () => {
             style={{ fontSize: '25px' }}
             onClick={handleSortByName}
           />
-          <input type='search' className={styles.search_input} />
+          <input
+            type='search'
+            className={styles.search_input}
+            onChange={handleSearch}
+          />
           <button onClick={changeView}>
             {view === 'grid' ? (
               <FiGrid style={{ fontSize: '25px' }} />
@@ -38,7 +45,11 @@ const App = () => {
         </nav>
       </header>
       <main>
-        <CardList view={view} isSort={isSortByName} />
+        <CardList
+          view={view}
+          isSortByName={isSortByName}
+          searchTerm={searchTerm}
+        />
       </main>
     </div>
   );

@@ -3,7 +3,7 @@ import Card from '../../ui/Card/Card';
 import getUsers from './../../../services/usersApi';
 import styles from './cardList.module.css';
 
-const CardList = ({ view, isSort }) => {
+const CardList = ({ view, isSortByName, searchTerm }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,7 +26,40 @@ const CardList = ({ view, isSort }) => {
     fetchUsers();
   }, []);
 
-  
+  const sortByName = (users) => {
+    const sortedUsers = users.sort((a, b) => {
+      if (a.name.first < b.name.first) {
+        return -1;
+      }
+      if (a.name.first > b.name.first) {
+        return 1;
+      }
+      return 0;
+    });
+    setSortedUsers(sortedUsers);
+  };
+
+  useEffect(() => {
+    if (!isSortByName) {
+      setSortedUsers(users);
+    } else {
+      sortByName(users);
+    }
+  }, [isSortByName, users]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const filteredUsers = users.filter((user) => {
+        return (
+          user.name.first.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.name.last.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+      setSortedUsers(filteredUsers);
+    } else {
+      setSortedUsers(users);
+    }
+  }, [searchTerm]);
 
   return (
     <>
@@ -34,18 +67,18 @@ const CardList = ({ view, isSort }) => {
       {error ? <p>{error.message}</p> : null}
 
       <div className={styles.grid}>
-        {users.map((user) => (
-              <Card
-                key={user.email}
-                fname={user.name.first}
-                lname={user.name.last}
-                email={user.email}
-                phone={user.phone}
-                picture={user.picture.large}
-                location={user.location.city}
-                view={view}
-              />
-          ))}
+        {sortedUsers.map((user) => (
+          <Card
+            key={user.email}
+            fname={user.name.first}
+            lname={user.name.last}
+            email={user.email}
+            phone={user.phone}
+            picture={user.picture.large}
+            location={user.location.city}
+            view={view}
+          />
+        ))}
       </div>
     </>
   );
