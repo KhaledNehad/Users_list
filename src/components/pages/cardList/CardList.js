@@ -8,15 +8,27 @@ const CardList = ({ view, isSortByName, searchTerm }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [numberOfUsers, setNumberOfUsers] = useState(10);
 
   const [sortedUsers, setSortedUsers] = useState([]);
+
+  const handleScroll = (e) => {
+
+    const { scrollHeight, scrollTop, clientHeight } = e.target;
+      console.log(scrollHeight, scrollTop, clientHeight);
+
+    if (scrollHeight - scrollTop === clientHeight) {
+      setNumberOfUsers((prevState) => prevState + 10);
+    }
+  };
 
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
     try {
-      const users = await getUsers();
-      setUsers(users);
+        const users = await getUsers(numberOfUsers);
+        setUsers((prevState) => [...prevState, ...users]);
+      
     } catch (error) {
       setError(error);
     }
@@ -25,7 +37,7 @@ const CardList = ({ view, isSortByName, searchTerm }) => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [ numberOfUsers ]);
 
   const sortByName = (users) => {
     const sortedUsers = users.sort((a, b) => {
@@ -63,12 +75,11 @@ const CardList = ({ view, isSortByName, searchTerm }) => {
   }, [searchTerm]);
 
   return (
-    <>
+    <div onScroll={handleScroll}>
       {loading ? <p>Loading...</p> : null}
       {error ? <p>{error.message}</p> : null}
 
-   
-      <StyledCardList view={ view }>
+      <StyledCardList view={view}>
         {sortedUsers.map((user) => (
           <Card
             key={user.email}
@@ -82,7 +93,7 @@ const CardList = ({ view, isSortByName, searchTerm }) => {
           />
         ))}
       </StyledCardList>
-    </>
+    </div>
   );
 };
 
