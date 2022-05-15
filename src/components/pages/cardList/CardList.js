@@ -1,52 +1,78 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../../ui/Card/Card';
 import getUsers from './../../../services/usersApi';
 
-import { StyledCardList } from './CardList.styles';
 
-const CardList = ({ view, isSortByName, searchTerm }) => {
+import { StyledCardList, StyledErrorMessage } from './CardList.styles';
+
+const CardList = ({ view, sortByName, searchTerm }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({ message: '' });
+  const [numberOfUsers, setNumberOfUsers] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [sortedUsers, setSortedUsers] = useState([]);
+
+  // const handleScroll = (e) => {
+  //   const { scrollHeight, scrollTop, clientHeight } = e.target;
+  //   console.log(scrollHeight, scrollTop, clientHeight);
+
+  //   if (scrollHeight - scrollTop === clientHeight) {
+  //     setNumberOfUsers((prevState) => prevState + 10);
+  //   }
+  // };
 
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
+
     try {
-      const users = await getUsers();
-      setUsers(users);
+      const usersList = await getUsers(numberOfUsers, currentPage);
+      setUsers((prevState) => [...prevState, ...usersList]);
+      setLoading(false);
     } catch (error) {
-      setError(error);
+      setError({ message: error.message });
     }
-    setLoading(false);
   };
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [numberOfUsers, currentPage]);
 
-  const sortByName = (users) => {
+  // sorting users
+  const HandleSortByName = (users) => {
     const sortedUsers = users.sort((a, b) => {
-      if (a.name.first < b.name.first) {
-        return -1;
+      if (sortByName === 'asc') {
+        if (a.name.first < b.name.first) {
+          return -1;
+        }
+        if (a.name.first > b.name.first) {
+          return 1;
+        }
+        return 0;
+      } else {
+        if (a.name.first > b.name.first) {
+          return -1;
+        }
+        if (a.name.first < b.name.first) {
+          return 1;
+        }
+        return 0;
       }
-      if (a.name.first > b.name.first) {
-        return 1;
-      }
-      return 0;
     });
     setSortedUsers(sortedUsers);
   };
 
   useEffect(() => {
-    if (!isSortByName) {
-      setSortedUsers(users);
+    if (sortByName === 'asc' || sortByName === 'desc') {
+      HandleSortByName(users);
     } else {
-      sortByName(users);
+      setSortedUsers(users);
     }
-  }, [isSortByName, users]);
+  }, [sortByName, users]);
+
+  // search users
 
   useEffect(() => {
     if (searchTerm) {
@@ -62,13 +88,21 @@ const CardList = ({ view, isSortByName, searchTerm }) => {
     }
   }, [searchTerm]);
 
+
+  const handleLoadMore = () => {
+
+    if (currentPage >= 5) {
+      setError({message: 'You have reached the maximum number of pages'});
+    } else {
+      setCurrentPage((prevState) => prevState + 1);
+    }
+  }
+
   return (
     <>
-      {loading ? <p>Loading...</p> : null}
-      {error ? <p>{error.message}</p> : null}
+      {loading && <p>Loading...</p>}
 
-   
-      <StyledCardList view={ view }>
+      <StyledCardList view={view}>
         {sortedUsers.map((user) => (
           <Card
             key={user.email}
@@ -82,6 +116,13 @@ const CardList = ({ view, isSortByName, searchTerm }) => {
           />
         ))}
       </StyledCardList>
+      {error ? (
+        <StyledErrorMessage type='info'>
+          {error.message}
+        </StyledErrorMessage>
+      ) : (
+        <button onClick={handleLoadMore}>more</button>
+      )}
     </>
   );
 };
