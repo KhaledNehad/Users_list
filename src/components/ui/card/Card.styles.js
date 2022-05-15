@@ -109,6 +109,6 @@ export const StyledCard = styled.div`
     z-index: 2;
     position: absolute;
     ${(props) => (props.view === 'grid' ? 'top: 20%' : 'left: 15%')};
-    text-align:center;
+    text-align: center;
   }
 `;
