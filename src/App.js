@@ -43,7 +43,7 @@ const App = () => {
                 style={{ fontSize: '25px', cursor: 'pointer' }}
                 onClick={handleSortByName}
               />
-              <SearchInput onChange={handleSearch} />
+              <SearchInput onChange={handleSearch} placeholder="Search by name" />
               <div onClick={changeView}>
                 {view === 'grid' ? (
                   <FiGrid style={{ fontSize: '25px', cursor: 'pointer' }} />

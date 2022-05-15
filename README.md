@@ -1,12 +1,14 @@
 # DevoTeam Users List assignment
 ## What has been done!
-- Setup Webpack for the assignment.
+- Setup Webpack for the App.
+- Dockerize the App.
 - Enable switch between grid and list view.
 - Added sorting by name (ascending and descending) functionality
 - Added search by name functionality
 - Handle empty or error states.
 - Using lazy loading of the cards.
 - Added some media queries for responsive.
+- Added some animations for the cards.
 - Using Styled-Components to create the style.
 - Added Accessibility measurements to make our application as accessible as possible
 <img width="611" alt="Screen Shot 2022-05-15 at 10 42 12 PM" src="https://user-images.githubusercontent.com/3638285/168493312-bdccf8d4-8866-4d31-99e0-c20b103c4c0c.png">
@@ -26,6 +28,14 @@
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm install` 
+To install dependencies
+
 ### `npm run dev`
+The app will be loaded in 
+http://localhost:8080/
 ### `npm run build`
+### `npm start`
+before running this command, you need to run `npm run build` first.
+Then app will be loaded in
+http://localhost:3000/

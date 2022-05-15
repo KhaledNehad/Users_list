@@ -7,7 +7,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const config = {
   mode: isProd ? 'production' : 'development',
-  entry: path.resolve(__dirname, 'src/index.js'),
+  entry: { app: path.resolve(__dirname, 'src/index.js') },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name][hash].js',
