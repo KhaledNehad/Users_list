@@ -1,6 +1,7 @@
 import React from 'react';
 import { BiPhoneCall, BiEnvelope } from 'react-icons/bi';
 import { StyledCard } from './Card.styles';
+import propTypes from 'prop-types';
 
 const Card = (props) => {
   const { fname, lname, email, phone, picture, location, view } = props;
@@ -32,5 +33,19 @@ const Card = (props) => {
     </>
   );
 };
+
+Card.propTypes = {
+  fname: propTypes.string.isRequired,
+  lname: propTypes.string.isRequired,
+  email: propTypes.string.isRequired,
+  phone: propTypes.string.isRequired,
+  picture: propTypes.string.isRequired,
+  location: propTypes.string.isRequired,
+  view: propTypes.string,
+}
+
+Card.defaultProps = {
+  view: 'grid',
+}
 
 export default Card;

@@ -3,12 +3,33 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 900px;
   margin: 0 auto;
+
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    width: 90%;
+  }
+
+  @media (max-width: ${({ theme }) => theme.large}) {
+    width: 90%;
+  }
 `;
+
 
 export const PageTitle = styled.h1`
   font-family: 'Work Sans', sans-serif;
   font-weight: 300;
-  font-size: 48px;
+  font-size: 3.5rem;
+
+  @media (max-width: ${({ theme }) => theme.mobileS}) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    font-size: 2.3rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.large}) {
+    font-size: 3rem;
+  }
 `;
 
 export const Nav = styled.nav`

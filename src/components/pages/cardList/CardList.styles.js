@@ -19,3 +19,29 @@ export const StyledErrorMessage = styled.p`
   text-align: center;
   margin: 1rem 0;
 `;
+
+export const StyledButton = styled.button`
+  background-color: var(--primary);
+  color: var(--dark-text);
+  border: none;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin: 1rem auto;
+  float: right;
+  transition: all 0.2s ease-in-out;
+
+  @media (max-width: ${({ theme }) => theme.tablet}) {
+    margin: 0 auto;
+    font-size: 0.7rem;
+    padding: 0.7rem;
+    border-radius: 0.3rem;
+  }
+
+  &:hover {
+    background-color: var(--secondary);
+    color: var(--black);
+  }
+`;
