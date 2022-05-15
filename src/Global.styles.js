@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
 body {
   background-color: #ebe9e4;
   font-family: 'Work Sans', sans-serif;
+  font-size:100%;
 }
 `;
 

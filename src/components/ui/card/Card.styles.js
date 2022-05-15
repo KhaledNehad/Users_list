@@ -18,6 +18,7 @@ export const StyledCard = styled.div`
   &:hover {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
   }
+
   @media (max-width: ${({ theme }) => theme.tablet}) {
     width: ${(props) => (props.view === 'grid' ? '45%' : '100%')};
     height: ${(props) => (props.view === 'grid' ? '250px' : '100px')};
@@ -36,12 +37,22 @@ export const StyledCard = styled.div`
     );
     border-radius: 20px 20px 60px 0;
     z-index: 1;
+
+    @media (max-width: ${({ theme }) => theme.tablet}) {
+      border-radius: 10px 10px 30px 0;
+      width: ${(props) => (props.view === 'grid' ? '100%' : '20%')};
+    }
   }
 
   .card-image {
     width: ${(props) => (props.view === 'grid' ? '50%' : '10%')};
     margin-left: ${(props) => (props.view === 'grid' ? '0' : '2rem')};
     z-index: 2;
+
+    @media (max-width: ${({ theme }) => theme.tablet}) {
+      width: ${(props) => (props.view === 'grid' ? '50%' : '20%')};
+    }
+
     img {
       width: 100%;
       border-radius: 50%;
@@ -71,6 +82,10 @@ export const StyledCard = styled.div`
       justify-content: ${(props) =>
         props.view === 'grid' ? 'center' : 'space-between'};
       align-items: center;
+
+      @media (max-width: ${({ theme }) => theme.tablet}) {
+        border-radius: 30px 0px 10px 10px;
+      }
     }
   }
 
@@ -84,7 +99,11 @@ export const StyledCard = styled.div`
       text-decoration: none;
       transition: all 0.3s ease-in-out;
 
-      :hover {
+      @media (max-width: ${({ theme }) => theme.tablet}) {
+        font-size: 1rem;
+      }
+
+      &:hover {
         color: #a7b8a8;
       }
     }
@@ -99,6 +118,19 @@ export const StyledCard = styled.div`
     width: 100%;
     margin-left: ${(props) => (props.view === 'grid' ? '0' : '15%')};
     margin-right: ${(props) => (props.view === 'grid' ? '0' : '1rem')};
+
+    @media (max-width: ${({ theme }) => theme.tablet}) {
+      margin-top: ${(props) => (props.view === 'grid' ? '2rem' : '0')};
+      margin-left: ${(props) => (props.view === 'grid' ? '0' : '33%')};
+    }
+
+    p {
+      font-size: 0.8rem;
+
+      @media (max-width: ${({ theme }) => theme.tablet}) {
+        font-size: 0.7rem;
+      }
+    }
   }
 
   h2 {
@@ -110,5 +142,10 @@ export const StyledCard = styled.div`
     position: absolute;
     ${(props) => (props.view === 'grid' ? 'top: 20%' : 'left: 15%')};
     text-align: center;
+
+    @media (max-width: ${({ theme }) => theme.tablet}) {
+      font-size: 1rem;
+      ${(props) => props.view === 'list' && { top: '25%', left: '33%' }};
+    }
   }
 `;

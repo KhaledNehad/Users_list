@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../../ui/Card/Card';
 import getUsers from './../../../services/usersApi';
+import propTypes from 'prop-types';
 
 
-import { StyledCardList, StyledErrorMessage } from './CardList.styles';
+import { StyledCardList, StyledErrorMessage, StyledButton } from './CardList.styles';
 
 const CardList = ({ view, sortByName, searchTerm }) => {
   const [users, setUsers] = useState([]);
@@ -121,10 +122,23 @@ const CardList = ({ view, sortByName, searchTerm }) => {
           {error.message}
         </StyledErrorMessage>
       ) : (
-        <button onClick={handleLoadMore}>more</button>
+          <StyledButton onClick={handleLoadMore}>Load More</StyledButton>
+        // <button onClick={handleLoadMore}>more</button>
       )}
     </>
   );
 };
+
+CardList.propTypes = {
+  view: propTypes.string,
+  sortByName: propTypes.string,
+  searchTerm: propTypes.string,
+}
+
+CardList.defaultProps = {
+  view: 'grid',
+  sortByName: 'asc',
+  searchTerm: '',
+}
 
 export default CardList;
