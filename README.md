@@ -11,7 +11,7 @@
 - Added some animations for the cards.
 - Using Styled-Components to create the style.
 - Added Accessibility measurements to make our application as accessible as possible
-<img width="611" alt="Screen Shot 2022-05-15 at 10 42 12 PM" src="https://user-images.githubusercontent.com/3638285/168493312-bdccf8d4-8866-4d31-99e0-c20b103c4c0c.png">
+<img width="611" alt="Screen Shot 2022-05-16 at 8 11 30 AM" src="https://user-images.githubusercontent.com/3638285/168529985-d0fd9452-a77c-47f3-8962-ce487961cda7.png">
 
 ## What I was planning to do!
 - Using Typescript.
