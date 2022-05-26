@@ -1,4 +1,4 @@
-# DevoTeam Users List assignment
+# Users List assignment
 ## What has been done!
 - Setup Webpack for the App.
 - Dockerize the App.
